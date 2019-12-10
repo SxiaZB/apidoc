@@ -55,6 +55,8 @@ var argv = cmd
 
     .option('--encoding <encoding>', 'Set the encoding of the source code. [utf8].', 'utf8')
 
+    .option('--filter-by <tag-filter:value>', 'Filter documentation by tag')
+
     .parse(process.argv)
 ;
 
@@ -95,7 +97,7 @@ function transformToObject(filters) {
 
 var options = {
     excludeFilters: argv.excludeFilters.length ? argv.excludeFilters : [''],
-    includeFilters: argv.fileFilters.length ? argv.fileFilters : ['.*\\.(clj|cls|coffee|cpp|cs|dart|erl|exs?|go|groovy|ino?|java|js|jsx|kt|litcoffee|lua|p|php?|pl|pm|py|rb|scala|ts|vue)$'],
+    includeFilters: argv.fileFilters.length ? argv.fileFilters : ['.*\\.(clj|cls|coffee|cpp|cs|dart|erl|exs?|go|groovy|ino?|java|js|jsx|kt|litcoffee|lua|mjs|p|php?|pl|pm|py|rb|scala|ts|vue)$'],
     src           : argv.input.length ? argv.input : ['./'],
     dest          : argv.output,
     template      : argv.template,
@@ -115,6 +117,7 @@ var options = {
     lineEnding    : argv.lineEnding,
     encoding      : argv.encoding,
     copyDefinitions: !argv.definitions,
+    filterBy      : argv.filterBy,
 };
 
 if (apidoc.createDoc(options) === false) {
